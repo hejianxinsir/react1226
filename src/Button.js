@@ -1,6 +1,6 @@
 
 // 测试文件，忽略即可
-import React from 'react';
+import React, {Constructor} from 'react';
 import './test.css';
 
 class Button extends React.Component {
@@ -8,16 +8,10 @@ class Button extends React.Component {
 		super(props)
 		this.state = {
 			name: '你叫什么名字?',
-			isOn: false,
-			date: new Date()
+			isOn: false
 		}
 	}
 
-	tick(){
-		this.setState({
-			date: new Date()
-		});
-	}
 
 	x(){
 		console.log('我是x函数')
@@ -26,29 +20,16 @@ class Button extends React.Component {
 		})
 	}
 
-	componentDidMount(){
-		this.timerID = setInterval(
-			()=>{ this.tick() }
-		,1000)
-	}
-
-	componentWillUnmount(){
-		clearInterval(this.timerID);
-	}
-
+	
 	render(){
 		return (
-			<div>
+			<div className="wrap clearfix">
+
 				<button className="btn1"
 								onClick={this.x.bind(this)}
 				>{this.state.name}
 				</button><br />
-
-				<div>{this.state.isOn ? <span className="myName">
-					何建新</span> : ''}
-				</div>
-				
-				<div>现在时间是: {this.state.date.toLocaleTimeString()} </div>
+				{this.state.isOn ? <span className="myName">何建新</span> : ''}
 			</div>
 		)
 	}
