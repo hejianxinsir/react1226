@@ -23,8 +23,9 @@ class App extends React.Component {
 			status: null,
 			deleted: false
 		})
+
 		this.setState({
-			newTodo: '',
+			newTodo: ' ',
 			todoList: this.state.todoList
 		})
 	}
