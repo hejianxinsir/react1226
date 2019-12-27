@@ -4,30 +4,19 @@ import TodoInput from './TodoInput';
 import TodoItem from './TodoItem';
 import 'normalize.css';
 import './reset.css';
+import * as localStore from './localStore.js';
 
 class App extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = {
 			newTodo: '',
-			todoList: [
-
-			]
+			todoList: localStore.load('todoList') || []
 		}
 	}
 
-	addTodo(event){
-		this.state.todoList.push({
-			id: idMaker(),
-			title: event.target.value,
-			status: null,
-			deleted: false
-		})
-
-		this.setState({
-			newTodo: ' ',
-			todoList: this.state.todoList
-		})
+	componentDidUpdate(){
+		localStore.save('todoList', this.state.todoList)
 	}
 
 	changeTitle(event){
@@ -47,6 +36,7 @@ class App extends React.Component {
 		this.setState(this.state)
 	}
 
+	
 	render(){
 		let todos = this.state.todoList
 			.filter((item=> !item.deleted))
@@ -75,6 +65,19 @@ class App extends React.Component {
 				</ol>
   	  </div>
   	);
+	}
+
+	addTodo(event){
+		this.state.todoList.push({
+			id: idMaker(),
+			title: event.target.value,
+			status: null,
+			deleted: false
+		})
+		this.setState({
+			newTodo: '',
+			todoList: this.state.todoList
+		})
 	}
 }
 
